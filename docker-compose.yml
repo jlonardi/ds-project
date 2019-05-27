@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  catalog-db:
+    image: postgres
+    restart: always
+    container_name: catalog-db
+    ports:
+      - '5433:5432'
+    environment:
+      - POSTGRES_USER=$POSTGRES_USER
+      - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
+      - POSTGRES_DB=$POSTGRES_DB
+  account-db:
+    image: postgres
+    restart: always
+    container_name: account-db
+    ports:
+      - '5434:5432'
+    environment:
+      - POSTGRES_USER=$POSTGRES_USER
+      - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
+      - POSTGRES_DB=$POSTGRES_DB
+  gateway-db:
+    image: postgres
+    restart: always
+    container_name: gateway-db
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_USER=$POSTGRES_USER
+      - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
+      - POSTGRES_DB=$POSTGRES_DB
