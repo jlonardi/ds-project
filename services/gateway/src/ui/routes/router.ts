@@ -1,7 +1,6 @@
 import path from 'path';
-import express, { Request, RequestHandler, Response } from 'express';
+import express, { RequestHandler } from 'express';
 import morgan from 'morgan';
-import { morganLogFormatter } from '../../../../common/utils/formatter';
 import { authRoutes } from '../../routes/auth.routes';
 import { publicRoutes } from './public.routes';
 import { privateRoutes } from './private.routes';
@@ -14,7 +13,7 @@ const userInViews: RequestHandler = (req, res, next) => {
 };
 
 router.use(express.static(path.join(__dirname, '../static')));
-router.use(morgan(morganLogFormatter as morgan.FormatFn<Request, Response>)); // place below static files to avoid static file request logging
+router.use(morgan('tiny')); // place below static files to avoid static file request logging
 router.use(userInViews);
 router.use(authRoutes);
 router.use(publicRoutes);

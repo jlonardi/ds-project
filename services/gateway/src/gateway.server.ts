@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import bodyParser from 'body-parser';
-import express, { Request, Response, NextFunction } from 'express';
+import express, { Response, NextFunction } from 'express';
 import session, { SessionOptions } from 'express-session';
 import connectPgSimple from 'connect-pg-simple';
 import path from 'path';
@@ -13,7 +13,6 @@ import { appRoutes } from './ui/routes/router';
 import { logger } from '../../common/utils/logger';
 import { IAppError } from '../../types/errors';
 import morgan from 'morgan';
-import { morganLogFormatter } from '../../common/utils/formatter';
 
 const pgSession = connectPgSimple(session);
 const auth0Strategy = passportAuth0Srategy.Strategy;
@@ -38,11 +37,10 @@ const strategy = new auth0Strategy(
 );
 
 passport.use(strategy);
-
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use(morgan(morganLogFormatter as morgan.FormatFn<Request, Response>)); // place below static files to avoid static file request logging
+app.use(morgan('tiny'));
 
 passport.serializeUser((user, done) => {
   done(null, user);

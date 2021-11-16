@@ -6,7 +6,7 @@ import { SQLError } from '../errors/sql-error';
 import { logger } from '../utils/logger';
 
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL
+  connectionString: process.env.DATABASE_URL,
 });
 
 interface IAsyncClient {
@@ -26,7 +26,7 @@ const getQueryAsyncWithTx = (client: PatchedClient) => ({
   queryAsync: (queryString: string, values?: IQueryObject) => {
     logQuery(queryString, values);
     return queryAsyncWithTx(client, queryString, values);
-  }
+  },
 });
 
 const getConnection = async <T>(fn: (client: IAsyncClient) => Promise<T[]>) => {
@@ -52,13 +52,11 @@ export const queryRowsAsync = <T>(queryString: string, values?: IQueryObject): P
   getConnection((client: IAsyncClient) => client.queryAsync(queryString, values));
 
 export const queryAsync = <T>(queryString: string, values?: IQueryObject): Promise<T[]> =>
-  getConnection(
-    async (client: IAsyncClient): Promise<any> => {
-      const rows = await client.queryAsync(queryString, values);
-      return rows[0];
-    }
-  );
+  getConnection(async (client: IAsyncClient): Promise<any> => {
+    const rows = await client.queryAsync(queryString, values);
+    return rows[0];
+  });
 
-pool.on('error', err => {
+pool.on('error', (err: Error) => {
   logger.error('An idle client has experienced an error', err.stack);
 });
