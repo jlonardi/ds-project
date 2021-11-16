@@ -6,6 +6,12 @@ The following are the instrocution to make the run the appication on your local 
 
 Prequisite is that you have docker and docker-compose installed on your system
 
+For a quick start simply run
+
+```
+sh scripts/setup-project.sh
+```
+
 ### Database
 
 To start the databases run
@@ -17,7 +23,7 @@ sh scripts/start-db.sh
 After the databses are up you need to run the migrations with
 
 ```
-sh scripts/migrate.sh
+sh scripts/run-migrations.sh
 ```
 
 ### Application
