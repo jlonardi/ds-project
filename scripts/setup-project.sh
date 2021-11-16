@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 
-rm -rf downloads
+rm -rf temp
 
-mkdir -p downloads
-curl -L -X GET https://api.onedrive.com/v1.0/shares/s!AjyRCN3EI939hrdLVYs_a5rFL9oL4Q/root/content > downloads/envs.zip
+mkdir -p temp
 
 set -e
 
@@ -13,7 +12,7 @@ read PASSWORD
 stty echo
 printf "\n"
 
-unzip -qq -P $PASSWORD downloads/envs.zip -d downloads/
+unzip -qq -P $PASSWORD vars.zip -d temp/
 
 set +e
 
@@ -21,10 +20,10 @@ source 'scripts/util/services.sh'
 
 for service in "${services[@]}"
 do
-  cp downloads/ds-project/$service/.env services/$service/.env
+  cp temp/ds-project/$service/.env services/$service/.env
 done
 
-rm -rf downloads
+rm -rf temp
 
 scripts/install-packages.sh
 scripts/start-db.sh
