@@ -13,7 +13,7 @@ const userInViews: RequestHandler = (req, res, next) => {
 };
 
 router.use(express.static(path.join(__dirname, '../static')));
-router.use(morgan('tiny')); // place below static files to avoid static file request logging
+router.use(morgan('combined')); // place below static files to avoid static file request logging
 router.use(userInViews);
 router.use(authRoutes);
 router.use(publicRoutes);

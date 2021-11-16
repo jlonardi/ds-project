@@ -15,7 +15,7 @@ const port = process.env.PORT || 3002;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use(morgan('tiny')); // place below static files to avoid static file request logging
+app.use(morgan('combined')); // place below static files to avoid static file request logging
 
 app.use('/account', accountRoutes);
 

@@ -40,7 +40,7 @@ passport.use(strategy);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use(morgan('tiny'));
+app.use(morgan('combined'));
 
 passport.serializeUser((user, done) => {
   done(null, user);
