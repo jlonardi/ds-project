@@ -14,3 +14,8 @@ do
   echo
    ( cd "services/$service" ; npm install )
 done
+
+  echo
+  echo "------- Installing packages for the load balancer -------"
+  echo
+   ( cd "services/load-balancer" ; npm install )
