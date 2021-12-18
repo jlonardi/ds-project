@@ -5,5 +5,5 @@ interface Product {
   name: string;
 }
 
-export const getCatalog = (): Promise<Product[]> =>
+export const getProducts = (): Promise<Product[]> =>
   queryRowsAsync<Product>(`SELECT * FROM products`);

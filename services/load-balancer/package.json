@@ -1,9 +1,9 @@
 {
-  "name": "catalog",
+  "name": "products",
   "version": "1.0.0",
-  "description": "Online store product catalog service",
+  "description": "Online store product products service",
   "scripts": {
-    "start": "db-migrate up && node ./build/catalog.server.js",
+    "start": "db-migrate up && node ./build/products.server.js",
     "dev": "cross-env TS_NODE_FILES=true nodemon --watch src --exec 'ts-node' src/lb.server.ts",
     "build": "npm run compile",
     "compile": "tsc"
