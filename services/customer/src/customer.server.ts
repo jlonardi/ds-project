@@ -6,7 +6,7 @@ import express, { Response, NextFunction, Request } from 'express';
 import { NotFoundError } from '../../common/errors/not-found-error';
 import { logger } from '../../common/utils/logger';
 import { IAppError } from '../../types/errors';
-import { accountRoutes } from './routes/account.routes';
+import { customerRoutes } from './routes/customer.routes';
 import morgan from 'morgan';
 
 const app = express();
@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 
 app.use(morgan('combined')); // place below static files to avoid static file request logging
 
-app.use('/account', accountRoutes);
+app.use('/customer', customerRoutes);
 
 app.get('/healthcheck', (_req: Request, res: Response) => {
   res.sendStatus(200);
