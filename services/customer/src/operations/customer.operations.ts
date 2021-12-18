@@ -8,14 +8,14 @@ interface Customer {
 export const getCustomer = (userId: string): Promise<Customer[]> =>
   queryAsync<Customer>(
     `SELECT user_id, name
-   FROM users
+   FROM customers
    WHERE user_id = $userId`,
     { userId }
   );
 
 export const addCustomer = (userId: string, name: string): Promise<Customer[]> =>
   queryAsync<Customer>(
-    `INSERT INTO users (user_id, name)
+    `INSERT INTO customers (user_id, name)
      VALUES ($userId, $name)`,
     { userId, name }
   );
