@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import bodyParser from 'body-parser';
-import express, { Response, NextFunction } from 'express';
+import express, { Response, NextFunction, Request } from 'express';
 import { NotFoundError } from '../../common/errors/not-found-error';
 import { logger } from '../../common/utils/logger';
 import { IAppError } from '../../types/errors';
@@ -18,6 +18,10 @@ app.use(bodyParser.json());
 app.use(morgan('combined')); // place below static files to avoid static file request logging
 
 app.use('/account', accountRoutes);
+
+app.get('/healthcheck', (_req: Request, res: Response) => {
+  res.sendStatus(200);
+});
 
 app.listen(port, () => logger.info(`App listening on port ${port}!`));
 

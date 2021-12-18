@@ -4,12 +4,12 @@
   "description": "Online store product catalog service",
   "scripts": {
     "start": "db-migrate up && node ./build/catalog.server.js",
-    "dev": "cross-env TS_NODE_FILES=true nodemon --watch src --exec 'ts-node' src/catalog.server.ts",
-    "dev-with-lb": "concurrently 'env PORT=3011 npm run dev' 'env PORT=3012 npm run dev' 'env PORT=3013 npm run dev' --prefix catalog-service-{index}-{pid} --prefix-colors red,green,yellow,blue,magenta,cyan,white,gray",
+    "dev": "cross-env TS_NODE_FILES=true nodemon --watch src --exec 'ts-node' src/lb.server.ts",
     "build": "npm run compile",
     "compile": "tsc"
   },
   "dependencies": {
+    "axios": "^0.24.0",
     "body-parser": "^1.19.0",
     "db-migrate": "^1.0.0-beta.16",
     "db-migrate-pg": "^1.2.2",
@@ -29,7 +29,6 @@
     "@types/node": "^12.12.24",
     "@types/passport-auth0": "^1.0.2",
     "chai": "^4.3.4",
-    "concurrently": "^6.5.0",
     "cross-env": "^5.2.1",
     "eslint": "^8.0.0",
     "eslint-config-airbnb": "^17.1.1",

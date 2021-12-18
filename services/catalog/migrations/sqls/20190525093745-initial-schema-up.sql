@@ -5,5 +5,7 @@ CREATE TABLE products (
   name          varchar(255) NOT NULL
 );
 
-INSERT INTO products (name) VALUES ('product one');
-INSERT INTO products (name) VALUES ('product two');
+INSERT INTO products (name) VALUES ('Shirt');
+INSERT INTO products (name) VALUES ('Shoes');
+INSERT INTO products (name) VALUES ('Jacket');
+INSERT INTO products (name) VALUES ('Trousers');
