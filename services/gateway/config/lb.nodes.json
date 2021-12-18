@@ -1,0 +1,4 @@
+{
+  "account": "http://localhost:8081",
+  "catalog": "http://localhost:8082"
+}
