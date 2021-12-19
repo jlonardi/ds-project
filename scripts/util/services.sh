@@ -1,2 +1,2 @@
-declare -a services=("customer" "products" "gateway")
+declare -a services=("customers" "products" "gateway")
 

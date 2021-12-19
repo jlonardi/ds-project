@@ -11,10 +11,10 @@ services:
       - POSTGRES_USER=$POSTGRES_USER
       - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
       - POSTGRES_DB=$POSTGRES_DB
-  customer-db:
+  customers-db:
     image: postgres
     restart: always
-    container_name: customer-db
+    container_name: customers-db
     ports:
       - '5434:5432'
     environment:

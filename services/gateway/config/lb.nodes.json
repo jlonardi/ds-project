@@ -1,4 +1,4 @@
 {
-  "customer": "http://localhost:8081",
+  "customers": "http://localhost:8081",
   "products": "http://localhost:8082"
 }

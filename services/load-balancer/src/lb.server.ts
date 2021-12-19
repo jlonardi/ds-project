@@ -104,11 +104,6 @@ app.get('/refresh', (_req, res) => {
   res.sendStatus(200);
 });
 
-app.get('/attach', (req, res) => {
-  console.log('Req: ', req.headers);
-  res.sendStatus(200);
-});
-
 app.get('/favicon.ico', (_req, res) => res.status(204));
 
 // When receive new request
@@ -117,7 +112,7 @@ app.use((req, res) => {
   handler(req, res);
 });
 
-// Listen on PORT 8080
+// Listen on PORT
 app.listen(port, () => logger.info(`Load balancer listening on port ${port}!`));
 
 // Catch 404 and forward to error handler
