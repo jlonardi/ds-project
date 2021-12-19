@@ -4,11 +4,11 @@
   "description": "Online store api gateway",
   "main": "index.js",
   "scripts": {
-    "start": "db-migrate up && node ./build/app.js",
-    "dev": "cross-env TS_NODE_FILES=true nodemon --watch src --exec 'ts-node' src/gateway.server.ts",
+    "start": "db-migrate up && node ./build/gateway/src/gateway.server.js",
+    "dev": "TS_NODE_FILES=true nodemon --watch src --exec 'ts-node' src/gateway.server.ts",
     "build": "npm run compile && npm run static && npm run views",
-    "static": "cp -r ./src/static/ ./build/static/",
-    "views": "cp -r ./src/views/ ./build/views/",
+    "static": "cp -r ./src/ui/static/ ./build/static/",
+    "views": "cp -r ./src/ui/views/ ./build/views/",
     "compile": "tsc",
     "test": "mocha -r ts-node/register tests/**/*.test.ts"
   },
@@ -40,7 +40,6 @@
     "@types/node": "^12.12.24",
     "@types/passport-auth0": "^1.0.2",
     "chai": "^4.3.4",
-    "cross-env": "^5.2.1",
     "eslint": "^8.0.0",
     "eslint-config-airbnb": "^17.1.1",
     "eslint-config-prettier": "^4.3.0",

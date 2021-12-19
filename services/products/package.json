@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Online store product products service",
   "scripts": {
-    "start": "db-migrate up && node ./build/products.server.js",
+    "start": "db-migrate up && node ./build/products/src/products.server.js",
     "dev": "cross-env TS_NODE_FILES=true nodemon --watch src --exec 'ts-node' src/products.server.ts",
     "dev-with-lb": "concurrently 'env PORT=3011 npm run dev' 'env PORT=3012 npm run dev' 'env PORT=3013 npm run dev' --prefix products-service-{index}-{pid} --prefix-colors red,green,yellow,blue,magenta,cyan,white,gray",
     "build": "npm run compile",
