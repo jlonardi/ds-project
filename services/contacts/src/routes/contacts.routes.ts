@@ -22,11 +22,11 @@ router.get('/', async (_req, res) => {
 router.post('/', async (req, res) => {
   try {
     console.log('Adding contact with data: ', req.body);
-    const { contact_id: id } = await addContact(req.body.email, req.body.name, req.body.address);
+    const { contact_id } = await addContact(req.body.email, req.body.name, req.body.address);
 
     setTimeout(async () => {
       console.log('Timeout expired - checking if contact is committed');
-      const contact = await getContact(id);
+      const contact = await getContact(contact_id);
       if (!contact.committed) {
         console.log(`Contact id ${contact.contact_id} not committed - rolling back`);
         await deleteContact(contact.contact_id);
@@ -36,7 +36,7 @@ router.post('/', async (req, res) => {
       }
     }, 15000);
 
-    res.send({ id });
+    res.send({ contact_id });
   } catch {
     res.status(500).send('Server error');
   }

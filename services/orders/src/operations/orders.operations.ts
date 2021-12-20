@@ -50,7 +50,7 @@ export const commit = (order_id: string) =>
     { order_id }
   );
 
-export const deleteOrder = (order_id: string) =>
+export const deleteOrder = (order_id: number) =>
   queryAsync(
     `DELETE FROM orders
     where order_id=$order_id`,

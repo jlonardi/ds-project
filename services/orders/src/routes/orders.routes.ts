@@ -4,8 +4,8 @@ import {
   commit,
   getAllOrders,
   getOrder,
-  addOrder
-  // deleteOrder
+  addOrder,
+  deleteOrder
 } from '../operations/orders.operations';
 
 const router = express.Router();
@@ -26,17 +26,17 @@ router.post('/', async (req, res) => {
     const order_id = uuidv4();
     await addOrder(order_id, req.body.contact_id, req.body.products);
 
-    // setTimeout(async () => {
-    //   console.log('Timeout expired - checking if order is committed');
-    //   const order = await getOrder(id);
-    //   if (!order.committed) {
-    //     console.log(`Order id ${order.id} not committed - rolling back`);
-    //     await deleteOrder(order.id);
-    //     console.log(`Order rollback complete`);
-    //   } else {
-    //     console.log('Order has been committed');
-    //   }
-    // }, 15000);
+    setTimeout(async () => {
+      console.log('Timeout expired - checking if order is committed');
+      const order = await getOrder(order_id);
+      if (!order.committed) {
+        console.log(`Order id ${order.order_id} not committed - rolling back`);
+        await deleteOrder(order.order_id);
+        console.log(`Order rollback complete`);
+      } else {
+        console.log('Order has been committed');
+      }
+    }, 15000);
 
     res.send({ order_id });
   } catch {

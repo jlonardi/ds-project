@@ -2,7 +2,7 @@ import path from 'path';
 import express from 'express';
 import morgan from 'morgan';
 import { publicRoutes } from './public.routes';
-import { proxyRoutes } from './proxy.routes';
+import { proxyRoutes } from './service.routes';
 
 const router = express.Router();
 
