@@ -21,6 +21,16 @@ services:
       - POSTGRES_USER=$POSTGRES_USER
       - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
       - POSTGRES_DB=$POSTGRES_DB
+  orders-db:
+    image: postgres
+    restart: always
+    container_name: orders-db
+    ports:
+      - '5435:5432'
+    environment:
+      - POSTGRES_USER=$POSTGRES_USER
+      - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
+      - POSTGRES_DB=$POSTGRES_DB
   gateway-db:
     image: postgres
     restart: always

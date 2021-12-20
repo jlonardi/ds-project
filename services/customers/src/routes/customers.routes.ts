@@ -22,14 +22,14 @@ router.get('/', async (_req, res) => {
 router.post('/', async (req, res) => {
   try {
     console.log('Adding customer with data: ', req.body);
-    const { id } = await addCustomer(req.body.email, req.body.name, req.body.address);
+    const { customer_id: id } = await addCustomer(req.body.email, req.body.name, req.body.address);
 
     setTimeout(async () => {
       console.log('Timeout expired - checking if customer is committed');
       const customer = await getCustomer(id);
       if (!customer.committed) {
-        console.log(`Customer id ${customer.id} not committed - rolling back`);
-        await deleteCustomer(customer.id);
+        console.log(`Customer id ${customer.customer_id} not committed - rolling back`);
+        await deleteCustomer(customer.customer_id);
         console.log(`Customer rollback complete`);
       } else {
         console.log('Customer has been committed');

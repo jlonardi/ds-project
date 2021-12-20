@@ -1,8 +1,8 @@
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 CREATE TABLE products (
-  product_id    uuid NOT NULL DEFAULT uuid_generate_v4(),
-  name          varchar(255) NOT NULL
+  product_id      SERIAL PRIMARY KEY,
+  name    varchar(255) NOT NULL
 );
 
 INSERT INTO products (name) VALUES ('Shirt');

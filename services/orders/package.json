@@ -1,0 +1,50 @@
+{
+  "name": "orders",
+  "version": "1.0.0",
+  "description": "Online store product orders service",
+  "scripts": {
+    "start": "db-migrate up && node ./build/orders/src/orders.server.js",
+    "dev": "cross-env TS_NODE_FILES=true nodemon --watch src --exec 'ts-node' src/orders.server.ts",
+    "dev-with-lb": "concurrently 'env PORT=3021 npm run dev' 'env PORT=3022 npm run dev' 'env PORT=3023 npm run dev' --prefix orders-service-{index}-{pid} --prefix-colors red,green,yellow,blue,magenta,cyan,white,gray",
+    "build": "npm run compile",
+    "compile": "tsc"
+  },
+  "dependencies": {
+    "axios": "^0.24.0",
+    "concurrently": "^6.5.0",
+    "db-migrate": "^1.0.0-beta.16",
+    "db-migrate-pg": "^1.2.2",
+    "express": "^4.17.1",
+    "lodash": "^4.17.21",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.13",
+    "pg-format": "^1.0.4",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.2.22",
+    "@types/dotenv": "^6.1.1",
+    "@types/express": "^4.17.2",
+    "@types/express-session": "^1.15.16",
+    "@types/lodash": "^4.14.149",
+    "@types/mocha": "^9.0.0",
+    "@types/morgan": "^1.7.37",
+    "@types/node": "^12.12.24",
+    "@types/passport-auth0": "^1.0.2",
+    "@types/uuid": "^8.3.3",
+    "chai": "^4.3.4",
+    "cross-env": "^5.2.1",
+    "eslint": "^8.0.0",
+    "eslint-config-airbnb": "^17.1.1",
+    "eslint-config-prettier": "^4.3.0",
+    "eslint-plugin-import": "^2.20.0",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-react": "^7.17.0",
+    "mocha": "^9.1.3",
+    "prettier": "^1.19.1",
+    "ts-node": "^8.10.2",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.7.4"
+  }
+}
