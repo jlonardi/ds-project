@@ -2,18 +2,52 @@ import format from 'pg-format';
 import { queryAsync, queryRowsAsync } from '../../../common/db-client/postgres';
 
 interface Order {
-  order_id: number;
-  contact_id: number;
+  order_id: string;
+  contact_id: string;
   products: string[];
   committed: boolean;
 }
 
 interface RawOrder {
-  order_id: number;
-  contact_id: number;
+  order_id: string;
+  contact_id: string;
   product_id: string;
   committed: boolean;
 }
+
+interface AccumulatorResult {
+  [key: string]: any;
+}
+
+const cleanOrderResponse = (data: RawOrder[]) => {
+  const res = data.reduce((prev, current) => {
+    const currentItem = prev[current.order_id];
+    if (currentItem) {
+      return {
+        ...prev,
+        [current.order_id]: {
+          ...currentItem,
+          products: [...currentItem.products, current.product_id],
+          committed: current.committed && currentItem.committed
+        }
+      };
+    } else {
+      return {
+        ...prev,
+        [current.order_id]: {
+          order_id: current.order_id,
+          contact_id: current.contact_id,
+          products: [current.product_id],
+          committed: current.committed
+        }
+      };
+    }
+  }, {} as AccumulatorResult);
+
+  const clean = Object.keys(res).map(key => res[key]);
+
+  return clean;
+};
 
 export const getOrder = async (order_id: string): Promise<Order> => {
   const res: RawOrder[] = await queryRowsAsync(
@@ -23,12 +57,7 @@ export const getOrder = async (order_id: string): Promise<Order> => {
     { order_id }
   );
 
-  return {
-    order_id: res[0].order_id,
-    contact_id: res[0].contact_id,
-    products: res.map(entry => entry.product_id),
-    committed: res.map(entry => entry.committed).reduce((prev, curr) => prev && curr)
-  };
+  return cleanOrderResponse(res)[0];
 };
 
 export const addOrder = (order_id: string, contact_id: string, products: string[]) =>
@@ -40,7 +69,10 @@ export const addOrder = (order_id: string, contact_id: string, products: string[
     )
   );
 
-export const getAllOrders = (): Promise<Order[]> => queryRowsAsync(`SELECT * FROM orders`);
+export const getAllOrders = async () => {
+  const res = await queryRowsAsync(`SELECT * FROM orders`);
+  return cleanOrderResponse(res);
+};
 
 export const commit = (order_id: string) =>
   queryAsync(
@@ -50,7 +82,7 @@ export const commit = (order_id: string) =>
     { order_id }
   );
 
-export const deleteOrder = (order_id: number) =>
+export const deleteOrder = (order_id: string) =>
   queryAsync(
     `DELETE FROM orders
     where order_id=$order_id`,

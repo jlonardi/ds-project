@@ -50,4 +50,9 @@ router.post('/place-order', async (req, res) => {
   }
 });
 
+router.get('/list-orders', async (_req, res) => {
+  const ordersResponse = await axios.get(`${loadBalancers.orders}/orders`);
+  res.json(ordersResponse.data);
+});
+
 export const proxyRoutes = router;
