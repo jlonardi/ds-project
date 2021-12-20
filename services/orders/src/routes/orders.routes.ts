@@ -24,7 +24,7 @@ router.post('/', async (req, res) => {
   try {
     console.log('Adding order with data: ', req.body);
     const order_id = uuidv4();
-    await addOrder(order_id, req.body.customer_id, req.body.products);
+    await addOrder(order_id, req.body.contact_id, req.body.products);
 
     // setTimeout(async () => {
     //   console.log('Timeout expired - checking if order is committed');

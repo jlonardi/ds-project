@@ -1,11 +1,11 @@
 {
-  "name": "customers",
+  "name": "contacts",
   "version": "1.0.0",
-  "description": "Online store product customers service",
+  "description": "Online store product contacts service",
   "scripts": {
-    "start": "db-migrate up && node ./build/customers/src/customers.server.js",
-    "dev": "cross-env TS_NODE_FILES=true nodemon --watch src --exec 'ts-node' src/customers.server.ts",
-    "dev-with-lb": "concurrently 'env PORT=3001 npm run dev' 'env PORT=3002 npm run dev' 'env PORT=3003 npm run dev' --prefix customers-service-{index}-{pid} --prefix-colors red,green,yellow,blue,magenta,cyan,white,gray",
+    "start": "db-migrate up && node ./build/contacts/src/contacts.server.js",
+    "dev": "cross-env TS_NODE_FILES=true nodemon --watch src --exec 'ts-node' src/contacts.server.ts",
+    "dev-with-lb": "concurrently 'env PORT=3001 npm run dev' 'env PORT=3002 npm run dev' 'env PORT=3003 npm run dev' --prefix contacts-service-{index}-{pid} --prefix-colors red,green,yellow,blue,magenta,cyan,white,gray",
     "build": "npm run compile",
     "compile": "tsc"
   },
