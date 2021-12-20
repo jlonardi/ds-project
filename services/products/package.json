@@ -10,7 +10,6 @@
     "compile": "tsc"
   },
   "dependencies": {
-    "body-parser": "^1.19.0",
     "db-migrate": "^1.0.0-beta.16",
     "db-migrate-pg": "^1.2.2",
     "express": "^4.17.1",

@@ -1,7 +1,6 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-import bodyParser from 'body-parser';
 import express, { Response, NextFunction } from 'express';
 import session, { SessionOptions } from 'express-session';
 import connectPgSimple from 'connect-pg-simple';
@@ -37,8 +36,8 @@ const strategy = new auth0Strategy(
 );
 
 passport.use(strategy);
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 app.use(morgan('combined'));
 

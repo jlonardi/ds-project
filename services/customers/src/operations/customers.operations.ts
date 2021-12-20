@@ -1,24 +1,42 @@
 import { queryAsync, queryRowsAsync } from '../../../common/db-client/postgres';
 
 interface Customer {
-  customer_id: string;
+  id: number;
   name: string;
+  email: string;
+  address: string;
+  committed: boolean;
 }
 
-export const getCustomer = (customerId: string): Promise<Customer[]> =>
-  queryAsync<Customer>(
-    `SELECT customer_id, name
+export const getCustomer = (id: number): Promise<Customer> =>
+  queryAsync(
+    `SELECT id, name, email, address, committed
      FROM customers
-     WHERE customer_id = $customerId`,
-    { customerId }
+     WHERE id = $id`,
+    { id }
   );
 
-export const addCustomer = (customerId: string, name: string): Promise<Customer[]> =>
-  queryAsync<Customer>(
-    `INSERT INTO customers (customer_id, name, commited)
-     VALUES ($customerId, $name, false)`,
-    { customerId, name }
+export const addCustomer = (email: string, name: string, address: string): Promise<Customer> =>
+  queryAsync(
+    `INSERT INTO customers (email, name, address, committed)
+     VALUES ($email, $name, $address, false)
+     RETURNING id, email, name, address, committed`,
+    { email, name, address }
   );
 
-export const getAllCustomers = (): Promise<Customer[]> =>
-  queryRowsAsync<Customer>(`SELECT * FROM customers`);
+export const getAllCustomers = (): Promise<Customer[]> => queryRowsAsync(`SELECT * FROM customers`);
+
+export const commit = (id: number) =>
+  queryAsync(
+    `UPDATE customers
+     SET committed = true
+     WHERE id=$id`,
+    { id }
+  );
+
+export const deleteCustomer = (id: number) =>
+  queryAsync(
+    `DELETE FROM customers
+    where id=$id`,
+    { id }
+  );

@@ -1,7 +1,6 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-import bodyParser from 'body-parser';
 import express, { Response, NextFunction, Request } from 'express';
 import { NotFoundError } from '../../common/errors/not-found-error';
 import { logger } from '../../common/utils/logger';
@@ -12,8 +11,8 @@ import morgan from 'morgan';
 const app = express();
 const port = process.env.PORT || 3002;
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 app.use(morgan('combined')); // place below static files to avoid static file request logging
 

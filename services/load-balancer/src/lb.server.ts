@@ -1,7 +1,7 @@
 import express, { Response, Request, NextFunction } from 'express';
 import { logger } from '../../common/utils/logger';
 import fs from 'fs';
-import axios, { AxiosRequestHeaders, Method } from 'axios';
+import axios, { Method } from 'axios';
 import { IAppError } from '../../types/errors';
 import { NotFoundError } from '../../common/errors/not-found-error';
 
@@ -12,6 +12,9 @@ if (!SERVICE) {
 }
 
 const app = express();
+
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 // Application servers
 
@@ -62,27 +65,26 @@ const handler = async (req: Request, res: Response) => {
   // Destructure following properties from request object
   const { method, url, headers, body } = req;
 
-  console.log('METHOD', method);
-  console.log('URL', url);
   // Select erver to forward the request
   const server = findNextHealthyServer();
-  console.log(`Calling server ${server.url}`);
+  console.log(`Redirecting request "${method}: ${server.url}${url}"`);
 
   try {
     // Requesting to underlying application server
-    const response = await axios({
+    const response = await axios.request({
       method: method as Method,
       url: `${server.url}${url}`,
-      headers: headers as AxiosRequestHeaders,
+      headers: {
+        'content-type': headers['content-type'] as string
+      },
       data: body
     });
 
     // Send back the response data
     // from application server to client
-    // console.log('RESPONSE', response.data);
     res.send(response.data);
   } catch (err) {
-    res.send('Server error');
+    res.status(500).send('Server error');
   }
 };
 

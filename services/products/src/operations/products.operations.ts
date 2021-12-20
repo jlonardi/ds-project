@@ -5,5 +5,4 @@ interface Product {
   name: string;
 }
 
-export const getProducts = (): Promise<Product[]> =>
-  queryRowsAsync<Product>(`SELECT * FROM products`);
+export const getProducts = (): Promise<Product[]> => queryRowsAsync(`SELECT * FROM products`);
