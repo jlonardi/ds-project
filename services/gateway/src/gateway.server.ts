@@ -8,7 +8,7 @@ import path from 'path';
 import passport from 'passport';
 import * as passportAuth0Srategy from 'passport-auth0';
 import { NotFoundError } from '../../common/errors/not-found-error';
-import { appRoutes } from './ui/routes/router';
+import { appRoutes } from './routes/router';
 import { logger } from '../../common/utils/logger';
 import { IAppError } from '../../types/errors';
 import morgan from 'morgan';
