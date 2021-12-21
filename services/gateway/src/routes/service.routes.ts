@@ -4,9 +4,13 @@ import loadBalancers from '../../config/lb.nodes.json';
 
 const router = express.Router();
 
-router.get('/products', async (_req, res) => {
+export const getProducts = async () => {
   const productsResponse = await axios.get(`${loadBalancers.products}/products`);
-  res.json(productsResponse.data);
+  return productsResponse.data;
+};
+
+router.get('/products', async (_req, res) => {
+  res.json(await getProducts());
 });
 
 interface OrderRequestBody {

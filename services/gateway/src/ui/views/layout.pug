@@ -2,8 +2,8 @@ doctype html
 html
   head
     title= title
-    link(rel='stylesheet', href='css/styles.css')
     link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css")
+    link(rel='stylesheet', href='css/styles.css')
     link(rel='shortcut icon' href='images/favicon.ico')
     link(href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
 
@@ -14,21 +14,13 @@ html
     div#root
       nav
         .nav-wrapper
-          .nav-inner-wrapper
-            if locals.user
-              - var portrait_source = locals.user.picture ? locals.user.picture : 'images/avatar.png'
-              .portrait-wrapper
-                img.portrait(src=portrait_source)
-              ul.right
-                li
-                  a(href="/logout") Log Out
 
       #main-container
         block content
 
   script(src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous")
   script(script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js")
-  script(src='https://cdnjs.cloudflare.com/ajax/libs/lodash-fp/0.10.4/lodash-fp.js')
+  script(src='https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js')
 
   block scripts
   script(src='js/scripts.js' type='module')

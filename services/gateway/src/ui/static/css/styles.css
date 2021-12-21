@@ -5,80 +5,6 @@ body {
   margin: 0;
 }
 
-#chat {
-  height: 100%;
-}
-
-#welcome-header {
-  display: flex;
-  justify-content: center;
-}
-
-#username-submit-button {
-  margin-top: 1rem;
-}
-
-.nav-inner-wrapper {
-  padding-left: 0.7em;
-  padding-right: 0.7em;
-}
-
-.portrait-wrapper {
-  position: relative;
-  top: 0.9em;
-  overflow: hidden;
-  display: inline-grid;
-  margin-right: 1em;
-}
-
-.portrait-section {
-  width: 5em;
-  display: flex;
-  justify-content: center;
-  padding-top: 1em;
-}
-
-.chat-card {
-  background-color: #f1f1f1;
-  display: flex;
-  margin: 1rem 0 1rem 0;
-  width: 70%;
-  border-radius: 3px;
-}
-
-.chat-section {
-}
-
-.portrait {
-  width: 3em;
-  height: 3em;
-  border-radius: 50%;
-}
-
-.own-message {
-  align-self: flex-end;
-  background-color: #d5ffd5;
-  margin-top: 0px;
-}
-
-.page-title {
-  font-size: 4rem;
-  margin: 10rem 0 4rem 0;
-}
-
-.centered {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
-}
-
-#welcome-container {
-  padding: 2em;
-  display: flex;
-  justify-content: center;
-}
-
 input:invalid {
   box-shadow: 0 0 5px 1px red;
 }
@@ -87,9 +13,30 @@ input:focus:invalid {
   box-shadow: none;
 }
 
+label {
+  color: #484848;
+}
+
 header {
   padding-top: 2em;
   padding-bottom: 3em;
+}
+
+.form-section {
+  margin: 3em;
+}
+
+#order-form {
+  display: flex;
+}
+
+.form-container {
+  display: flex;
+}
+
+.submit-button {
+  max-width: 20em;
+  margin-top: 2em;
 }
 
 #root {
@@ -99,39 +46,10 @@ header {
 }
 
 #main-container {
+  padding-top: 3em;
   padding-left: 3em;
   padding-right: 3em;
   height: calc(100% - 4em);
   display: flex;
   justify-content: center;
-}
-
-#chatlist {
-  list-style: none;
-  padding-left: 0;
-  max-height: 50vh;
-  min-height: 50vh;
-  overflow: scroll;
-}
-
-#chat-header {
-  margin-bottom: 1em;
-}
-
-.chat-username {
-  font-weight: bold;
-  margin-bottom: 0.2em;
-}
-
-.chat-message {
-  margin-bottom: 1em;
-}
-
-.chat-item {
-  opacity: 1;
-  transition: opacity 1s;
-  width: 100%;
-  display: flex;
-  align-items: flex-start;
-  flex-direction: column;
 }

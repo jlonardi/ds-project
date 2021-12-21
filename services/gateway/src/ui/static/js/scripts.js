@@ -1,54 +1,46 @@
-const select = options => $('<select>').append(options);
-const column = content => $('<td>', { class: 'col' }).append(content);
-const input = props => $('<input>', props);
+import { post } from './requests.js';
 
-const colors = [
-  { value: 1, text: 'Punainen', color: 'red' },
-  { value: 2, text: 'Sininen', color: 'blue' },
-  { value: 3, text: 'Vihreä', color: 'green' }
-];
+$(document).ready(() => {
+  $('#order-form').submit(async event => {
+    event.preventDefault();
 
-const sizes = [
-  { value: 1, text: 'Small' },
-  { value: 2, text: 'Medium' },
-  { value: 3, text: 'Large' }
-];
+    const form = $('#order-form')[0];
 
-const options = _.map(({ value, text }) => $('<option>', { value }).text(text));
+    const formData = new FormData(form);
 
-const colorSelection = () => column([select(options(colors))]);
+    const checkboxes = $('#order-form').find('input[type=checkbox]');
 
-const sizeSelection = () => column(select(options(sizes)));
+    const products = [];
 
-const amountSelection = () => column(input({ type: 'number' }));
+    $.each(checkboxes, function(key, val) {
+      products.push({ id: $(val).attr('data-id'), selected: val.checked });
+    });
 
-const deleteRow = id => () => $(`#${id}`).remove();
+    const selectedProductIds = products.filter(p => p.selected).map(p => p.id);
 
-const deleteButton = id =>
-  input({ type: 'button', class: 'delete-button', value: 'X' }).click(deleteRow(id));
+    const name = $('#name')[0].value;
+    const address = $('#address')[0].value;
+    const email = $('#email')[0].value;
 
-const deleteRowButton = id => $('<td>', { class: 'col' }).append(deleteButton(id));
+    if (!name || !address || !email) {
+      alert('Please fill all fields in the form.');
+      return;
+    }
 
-const mapColumnsToRow = id => _.map(fn => fn(id));
+    if (selectedProductIds.length === 0) {
+      alert('You need to pick at least one product.');
+      return;
+    }
 
-const columns = id => {
-  const colGenerator = mapColumnsToRow(id);
-  return colGenerator([colorSelection, sizeSelection, amountSelection, deleteRowButton]);
-};
+    const payload = {
+      name,
+      address,
+      email,
+      products: selectedProductIds
+    };
 
-const row = id => $('<tr>', { class: 'row', id }).append(columns(id));
-
-const ids = _.map(el => parseInt(el.id, 10));
-
-const generateId = rows => {
-  const currentMax = _.max(ids(rows));
-  return currentMax < 0 ? 0 : currentMax + 1;
-};
-
-const addRow = () => $('#table-body').append(row(generateId($('.row'))));
-
-$('#addrow').click(addRow);
-
-$('#logout').click(async () => {
-  window.location.href = `${window.location.origin}/logout`;
+    await post('/place-order', payload);
+    console.log('payload', payload);
+    window.location = '/orders';
+  });
 });

@@ -1,5 +1,26 @@
 extends layout.pug
 
 block content
-  .centered
-    h2.page-title Welcome
+  div
+    form#order-form
+      div.form-container
+        div.form-section
+          h4 Products
+          ul
+            each val in products
+              li
+                p
+                  label
+                    input(id="product-" + val.product_id type="checkbox" data-id=val.product_id)
+                    span(for="product-" + val.product_id)= val.name
+      div.form-section
+        h4 Contact
+        label(for="name") Full Name
+        input#name(type="text" placeholder="Full Name" required="required" pattern="[a-zA-ZäöüÄÖÜß\\\s]{2,}")
+        label(for="address") Delivery Address
+        input#address(type="text" placeholder="Delivery Address" required="required" pattern="[a-zA-ZäöüÄÖÜß0-9\\\s]{2,}")
+        label(for="email") Email
+        input#email(type="email" placeholder="Email")
+        button.btn.waves-effect.waves-light.submit-button(type="submit" name="action") Place Order
+          i.material-icons.right send
+
