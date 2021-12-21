@@ -1,3 +1,4 @@
+import format from 'pg-format';
 import { queryRowsAsync } from '../../../common/db-client/postgres';
 
 interface Product {
@@ -6,3 +7,12 @@ interface Product {
 }
 
 export const getProducts = (): Promise<Product[]> => queryRowsAsync(`SELECT * FROM products`);
+
+export const getSelectedProducts = (productIds: string) =>
+  queryRowsAsync(
+    format(
+      `SELECT * FROM products
+      WHERE product_id IN (%L)`,
+      productIds
+    )
+  );

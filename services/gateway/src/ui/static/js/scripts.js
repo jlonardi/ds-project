@@ -39,8 +39,12 @@ $(document).ready(() => {
       products: selectedProductIds
     };
 
-    await post('/place-order', payload);
-    console.log('payload', payload);
-    window.location = '/orders';
+    try {
+      await post('/place-order', payload);
+      console.log('payload', payload);
+      window.location = '/orders?success=true';
+    } catch (err) {
+      alert('Something went wrong');
+    }
   });
 });
