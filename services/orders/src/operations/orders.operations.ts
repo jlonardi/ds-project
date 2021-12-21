@@ -56,7 +56,8 @@ export const getOrder = async (order_id: string): Promise<Order> => {
   const res: RawOrder[] = await queryRowsAsync(
     `SELECT *
      FROM orders
-     WHERE order_id = $order_id`,
+     WHERE order_id = $order_id
+     ORDER BY created_at DESC`,
     { order_id }
   );
 
@@ -73,7 +74,7 @@ export const addOrder = (order_id: string, contact_id: string, products: string[
   );
 
 export const getAllOrders = async () => {
-  const res = await queryRowsAsync(`SELECT * FROM orders`);
+  const res = await queryRowsAsync(`SELECT * FROM orders ORDER BY created_at DESC`);
   return cleanOrderResponse(res);
 };
 

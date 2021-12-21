@@ -1,20 +1,17 @@
 #!/usr/bin/env bash
 
+echo
+echo "------- Setting environment variables -------"
+echo
+
 rm -rf temp
 
 mkdir -p temp
+unzip -qq vars.zip -d temp/
 
-set -e
+echo 'Done!'
+echo
 
-stty -echo
-printf "Password: "
-read PASSWORD
-stty echo
-printf "\n"
-
-unzip -qq -P $PASSWORD vars.zip -d temp/
-
-set +e
 
 source 'scripts/util/services.sh'
 

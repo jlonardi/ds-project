@@ -1,15 +1,10 @@
 import express, { Response, Request, NextFunction } from 'express';
 import { logger } from '../../common/utils/logger';
-import fs from 'fs';
 import axios, { Method } from 'axios';
 import { IAppError } from '../../types/errors';
 import { NotFoundError } from '../../common/errors/not-found-error';
 
-const SERVICE = process.env.SERVICE;
-
-if (!SERVICE) {
-  throw 'No Service name given';
-}
+const SERVICE_NODE_URLS = JSON.parse(process.env.SERVICE_NODE_URLS || '[]');
 
 const app = express();
 
@@ -24,9 +19,7 @@ interface ServerState {
 }
 
 const loadServerInfo = (): ServerState[] => {
-  const rawData = fs.readFileSync(`nodes/${SERVICE}.nodes.json`, 'utf8');
-  const nodeInfo = JSON.parse(rawData);
-  return nodeInfo.servers.map((url: string) => ({ url, state: 'unhealthy' }));
+  return SERVICE_NODE_URLS.map((url: string) => ({ url, state: 'unhealthy' }));
 };
 
 let servers = loadServerInfo();
@@ -101,7 +94,7 @@ setInterval(async () => {
   console.log(servers);
 }, 5000);
 
-app.get('/refresh', (_req, res) => {
+app.get('/reload', (_req, res) => {
   servers = loadServerInfo();
   res.sendStatus(200);
 });

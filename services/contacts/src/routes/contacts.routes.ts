@@ -10,13 +10,21 @@ import {
 const router = express.Router();
 
 router.get('/:id', async (req, res) => {
-  const contact = await getContact(parseInt(req.params.id));
-  res.json(contact);
+  try {
+    const contact = await getContact(parseInt(req.params.id));
+    res.json(contact);
+  } catch {
+    res.status(500).send('Server error');
+  }
 });
 
 router.get('/', async (_req, res) => {
-  const contacts = await getAllContacts();
-  res.json(contacts);
+  try {
+    const contacts = await getAllContacts();
+    res.json(contacts);
+  } catch {
+    res.status(500).send('Server error');
+  }
 });
 
 router.post('/', async (req, res) => {

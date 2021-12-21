@@ -1,6 +1,7 @@
 import axios from 'axios';
 import express from 'express';
-import loadBalancers from '../../config/lb.nodes.json';
+
+const loadBalancers = JSON.parse(process.env.LB_SERVERS || '{}');
 
 const router = express.Router();
 interface OrderEntry {
@@ -92,9 +93,12 @@ export const getOrderList = async () => {
     const { products, contact_id, order_id, created_at } = order;
     const fetchedProducts = await getSelectedProducts(products);
     const { name, address, email } = await getContanct(contact_id);
+    const timestamp = new Date(created_at);
+    const date = timestamp.toLocaleDateString('fi-FI');
+    const time = new Date(created_at).toLocaleTimeString('fi-FI');
     return {
       order_id,
-      created_at: new Date(created_at).toLocaleDateString('fi-FI'),
+      created_at: `${date} ${time}`,
       products: fetchedProducts.map(product => product.name),
       name,
       address,
