@@ -5,6 +5,7 @@ interface Order {
   order_id: string;
   contact_id: string;
   products: string[];
+  created_at: string;
   committed: boolean;
 }
 
@@ -13,6 +14,7 @@ interface RawOrder {
   contact_id: string;
   product_id: string;
   committed: boolean;
+  created_at: string;
 }
 
 interface AccumulatorResult {
@@ -35,6 +37,7 @@ const cleanOrderResponse = (data: RawOrder[]) => {
       return {
         ...prev,
         [current.order_id]: {
+          created_at: current.created_at,
           order_id: current.order_id,
           contact_id: current.contact_id,
           products: [current.product_id],

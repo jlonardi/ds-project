@@ -7,6 +7,7 @@ interface OrderEntry {
   contact_id: string;
   products: string[];
   order_id: string;
+  created_at: string;
 }
 
 interface ProductEntry {
@@ -88,11 +89,12 @@ router.post('/place-order', async (req, res) => {
 export const getOrderList = async () => {
   const rawOrders = await getOrders();
   const orderList = rawOrders.map(async (order: OrderEntry) => {
-    const { products, contact_id, order_id } = order;
+    const { products, contact_id, order_id, created_at } = order;
     const fetchedProducts = await getSelectedProducts(products);
     const { name, address, email } = await getContanct(contact_id);
     return {
       order_id,
+      created_at: new Date(created_at).toLocaleDateString('fi-FI'),
       products: fetchedProducts.map(product => product.name),
       name,
       address,

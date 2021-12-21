@@ -8,6 +8,7 @@ block content
     each order in orders
       div.order-wrapper
         div.order-information
+          span Created: #{order.created_at}
           span ID: #{order.order_id}
         div.order-item
           div.product-list

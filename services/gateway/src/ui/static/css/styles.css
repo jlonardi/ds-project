@@ -82,7 +82,8 @@ header {
 
 .order-information {
   margin-bottom: 1em;
-  display: block;
+  display: flex;
+  flex-direction: column;
 }
 
 .order-wrapper {
