@@ -32,6 +32,6 @@ echo
 sleep 10  # Waits 10 seconds.
 
 scripts/run-migrations.sh
-scripts/watch-services-with-lb.sh
+scripts/watch-services.sh
 
 echo "Done!"

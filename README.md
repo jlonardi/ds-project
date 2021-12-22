@@ -12,6 +12,13 @@ For a quick start simply run
 sh scripts/setup-project.sh
 ```
 
+By default this will start 3 instance replicas from each service so in total 12 server should be going up.
+
+1 Gateway
+2 Load balancers
+9 Service servers
+3 Databases
+
 ### Database
 
 To start the databases run
